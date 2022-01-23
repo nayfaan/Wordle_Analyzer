@@ -1,36 +1,47 @@
 import services.match
-from services.match import *
 import itertools
 #import math
-    
+
+def index_display(match, sol):
+    disp = []
+    for word in match.comb:
+        disp.append(str(sol.index(word)))
+    return disp
+
 def run(length, compare):
     if not isinstance(length, int):
         raise TypeError("Word length must be an integer.")
-    if length < 4 or length > 15:
-        raise ValueError("Word length must be between 4-15.")
+    if length < 2 or length > 15:
+        raise ValueError("Word length must be between 2-15.")
     if not isinstance(compare, int):
         raise TypeError("No. of words to compare must be an integer.")
     if compare < 2:
         raise ValueError("No. of words to compare must be at least 2.")
     
     with open("./input/split/dictionary_"+str(length)+".txt", "rt") as f:
-        sol_raw = f.read().splitlines()
+        sol = f.read().splitlines()
+                
+    max_coverage = 1
     
-    sol = []
-    for word in sol_raw:
-        if len(word) == length:
-            sol.append(word)
-            
-    max_coverage = length
+    length_of_dict = len(sol)
+    print("# of words with "+str(length)+" letters: "+str(length_of_dict))
+    print_interval = 1000000
+    count = 0
     
     match_comb = itertools.combinations(sol, compare)
     good_set = []
-    threshold = 0#int(math.ceil((2-pow(2,1-compare))*length))
+    #threshold = 0#int(math.ceil((2-pow(2,1-compare))*length))
     for comb in match_comb:
-        comb_match = match(comb)
-        if comb_match.cover >= threshold:
+        comb_match = services.match.match(comb)
+        if comb_match.cover == max_coverage:
             good_set.append(comb_match)
-            max_coverage = max(max_coverage,comb_match.cover)
+        elif comb_match.cover > max_coverage:
+            good_set = [comb_match]
+            max_coverage = comb_match.cover
+        
+        count += 1
+        if count % print_interval == 0:
+            print("matched: {",",".join(index_display(comb_match, sol)),"}...",sep='')
             
     #good_set.sort(key=len)
     for x in good_set:
@@ -38,6 +49,6 @@ def run(length, compare):
             print(x)
 
 if __name__ == "__main__":
-    length = 15
-    compare = 3
+    length = 5
+    compare = 2
     run(length, compare)
