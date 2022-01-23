@@ -1,8 +1,7 @@
 import services.match
 from services.match import *
 import itertools
-import math
-from operator import attrgetter
+#import math
     
 def run(length, compare):
     if not isinstance(length, int):
@@ -39,6 +38,6 @@ def run(length, compare):
             print(x)
 
 if __name__ == "__main__":
-    length = 11
-    compare = 2
+    length = 15
+    compare = 3
     run(length, compare)
