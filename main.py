@@ -14,7 +14,7 @@ def run(length, compare):
     if compare < 2:
         raise ValueError("No. of words to compare must be at least 2.")
     
-    with open("./input/dictionary.txt", "rt") as f:
+    with open("./input/split/dictionary_"+str(length)+".txt", "rt") as f:
         sol_raw = f.read().splitlines()
     
     sol = []
@@ -22,22 +22,23 @@ def run(length, compare):
         if len(word) == length:
             sol.append(word)
             
+    max_coverage = length
+    
     match_comb = itertools.combinations(sol, compare)
     good_set = []
-    threshold = int(math.ceil((2-pow(2,1-compare))*length))
-    threshold = 0
+    threshold = 0#int(math.ceil((2-pow(2,1-compare))*length))
     for comb in match_comb:
         comb_match = match(comb)
         if comb_match.cover >= threshold:
             good_set.append(comb_match)
+            max_coverage = max(max_coverage,comb_match.cover)
             
     #good_set.sort(key=len)
-    max_coverage = max(comb.cover for comb in good_set)
     for x in good_set:
         if x.cover == max_coverage:
             print(x)
 
 if __name__ == "__main__":
     length = 11
-    compare = 3
+    compare = 2
     run(length, compare)

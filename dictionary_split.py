@@ -1,9 +1,6 @@
-def output_csv(ids):
-    with open('output/output_url.csv', 'w', newline='') as csvfile:
-        output = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        for row in ids:
-            output.writerow(row)
-            print(row)
+def split_dict(num, num_list):
+    with open('output/dictionary_'+str(num)+'.txt', 'w', newline='') as f:
+            f.write('\n'.join(num_list))
     
 def run():
     
@@ -11,8 +8,20 @@ def run():
         sol_raw = f.read().splitlines()
     
     sol = {}
+    lengths = set()
     for word in sol_raw:
-        len(word) == length
+        lengths = lengths.union({len(word)})
+        
+    for num in lengths:
+        sol[num] = list()
+        
+    for word in sol_raw:
+        sol[len(word)].append(word)
+        
+    for num in sol:
+        split_dict(num, sol[num])
+        
+    print (sol)
 
 if __name__ == "__main__":
     run()
