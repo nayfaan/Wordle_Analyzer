@@ -4,8 +4,9 @@ import itertools
 
 def index_display(match, sol):
     disp = []
+    digit = len(str(len(sol)))
     for word in match.comb:
-        disp.append(str(sol.index(word)))
+        disp.append(str(sol.index(word)).rjust(digit))
     return disp
 
 def run(length, compare):
@@ -41,7 +42,7 @@ def run(length, compare):
         
         count += 1
         if count % print_interval == 0:
-            print("matched: {",",".join(index_display(comb_match, sol)),"}...",sep='')
+            print("Analyzed: [",", ".join(index_display(comb_match, sol)),"] ...",sep='')
             
     #good_set.sort(key=len)
     for x in good_set:
@@ -49,6 +50,6 @@ def run(length, compare):
             print(x)
 
 if __name__ == "__main__":
-    length = 15
+    length = 4
     compare = 3
     run(length, compare)
