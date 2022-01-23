@@ -49,6 +49,6 @@ def run(length, compare):
             print(x)
 
 if __name__ == "__main__":
-    length = 5
-    compare = 2
+    length = 15
+    compare = 3
     run(length, compare)

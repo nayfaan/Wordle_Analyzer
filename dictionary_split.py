@@ -19,9 +19,10 @@ def run():
         sol[len(word)].append(word)
         
     for num in sol:
+        #print(num,len(sol[num]))
         split_dict(num, sol[num])
         
-    print (sol)
+    #print (sol)
 
 if __name__ == "__main__":
     run()
