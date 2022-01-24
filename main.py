@@ -19,7 +19,8 @@ def run(length, compare):
     if compare < 2:
         raise ValueError("No. of words to compare must be at least 2.")
     
-    with open("./input/split/dictionary_"+str(length)+".txt", "rt") as f:
+    '''with open("./input/split/dictionary_"+str(length)+".txt", "rt") as f:'''
+    with open("./input/all_words-saine.txt", "rt") as f:
         sol = f.read().splitlines()
                 
     max_coverage = 1
@@ -50,6 +51,6 @@ def run(length, compare):
             print(x)
 
 if __name__ == "__main__":
-    length = 4
-    compare = 3
+    length = 5
+    compare = 4
     run(length, compare)
